@@ -1,20 +1,13 @@
-import com.android.aaptcompiler.compileResource
-import com.android.build.gradle.internal.cxx.configure.buildTypeOf
-import com.android.build.gradle.internal.cxx.settings.getCmakeDefaultEnvironment
-import com.android.build.gradle.internal.utils.validateNamespaceValue
-import org.gradle.kotlin.dsl.support.kotlinCompilerOptions
-
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.application)
 }
 
 android {
-    namespace = "com.example.calculadora_senai_V2"
+    namespace = "com.example.orion_calculator_senai_v2"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.calculadora_senai V2"
+        applicationId = "com.example.orion_calculator_senai_v2"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -24,26 +17,35 @@ android {
     }
 
     buildTypes {
-        release  {
+        release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-
-
-
+                "proguard-rules.pro"
             )
         }
     }
 
-compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-        }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-    configurations {
+}
 
-
+configurations.all {
+    resolutionStrategy {
+        force("androidx.activity:activity:1.9.3")
+        force("androidx.core:core:1.13.1")
+        force("androidx.core:core-ktx:1.13.1")
     }
+}
 
+dependencies {
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }
